@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CageEmployeeRepository;
+use App\Repository\CageEmployerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CageEmployeeRepository::class)]
-class CageEmployee
+#[ORM\Entity(repositoryClass: CageEmployerRepository::class)]
+class CageEmployer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

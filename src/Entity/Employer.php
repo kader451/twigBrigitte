@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployerRepository::class)]
@@ -21,6 +23,14 @@ class Employer
 
     #[ORM\Column(length: 55, nullable: true)]
     private ?string $sexe = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'poste')]
+    private ?self $poste = null;
+
+    public function __construct()
+    {
+        $this->poste = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +69,40 @@ class Employer
     public function setSexe(?string $sexe): static
     {
         $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    public function getPoste(): ?self
+    {
+        return $this->poste;
+    }
+
+    public function setPoste(?self $poste): static
+    {
+        $this->poste = $poste;
+
+        return $this;
+    }
+
+    public function addPoste(self $poste): static
+    {
+        if (!$this->poste->contains($poste)) {
+            $this->poste->add($poste);
+            $poste->setPoste($this);
+        }
+
+        return $this;
+    }
+
+    public function removePoste(self $poste): static
+    {
+        if ($this->poste->removeElement($poste)) {
+            // set the owning side to null (unless already changed)
+            if ($poste->getPoste() === $this) {
+                $poste->setPoste(null);
+            }
+        }
 
         return $this;
     }
