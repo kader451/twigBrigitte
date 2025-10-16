@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,28 @@ class Animals
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $dateArriv√©√e = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'classe')]
+    private ?self $classe = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'adoptant')]
+    private ?self $adoptants = null;
+
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'adoptants')]
+    private Collection $adoptant;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'cage')]
+    private ?self $cage = null;
+
+    public function __construct()
+    {
+        $this->classe = new ArrayCollection();
+        $this->adoptant = new ArrayCollection();
+        $this->cage = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +144,116 @@ class Animals
     public function setDateArriv√©√e(?\DateTime $dateArriv√©√e): static
     {
         $this->dateArriv√©√e = $dateArriv√©√e;
+
+        return $this;
+    }
+
+    public function getClasse(): ?self
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(?self $classe): static
+    {
+        $this->classe = $classe;
+
+        return $this;
+    }
+
+    public function addClasse(self $classe): static
+    {
+        if (!$this->classe->contains($classe)) {
+            $this->classe->add($classe);
+            $classe->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClasse(self $classe): static
+    {
+        if ($this->classe->removeElement($classe)) {
+            // set the owning side to null (unless already changed)
+            if ($classe->getClasse() === $this) {
+                $classe->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdoptants(): ?self
+    {
+        return $this->adoptants;
+    }
+
+    public function setAdoptants(?self $adoptants): static
+    {
+        $this->adoptants = $adoptants;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getAdoptant(): Collection
+    {
+        return $this->adoptant;
+    }
+
+    public function addAdoptant(self $adoptant): static
+    {
+        if (!$this->adoptant->contains($adoptant)) {
+            $this->adoptant->add($adoptant);
+            $adoptant->setAdoptants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdoptant(self $adoptant): static
+    {
+        if ($this->adoptant->removeElement($adoptant)) {
+            // set the owning side to null (unless already changed)
+            if ($adoptant->getAdoptants() === $this) {
+                $adoptant->setAdoptants(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCage(): ?self
+    {
+        return $this->cage;
+    }
+
+    public function setCage(?self $cage): static
+    {
+        $this->cage = $cage;
+
+        return $this;
+    }
+
+    public function addCage(self $cage): static
+    {
+        if (!$this->cage->contains($cage)) {
+            $this->cage->add($cage);
+            $cage->setCage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCage(self $cage): static
+    {
+        if ($this->cage->removeElement($cage)) {
+            // set the owning side to null (unless already changed)
+            if ($cage->getCage() === $this) {
+                $cage->setCage(null);
+            }
+        }
 
         return $this;
     }
