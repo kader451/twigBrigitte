@@ -16,6 +16,9 @@ class RelationAffiliation
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $nom = null;
 
+    #[ORM\ManyToOne(targetEntity: self::class)]
+    private ?self $animals = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class RelationAffiliation
     public function setNom(?string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getAnimals(): ?self
+    {
+        return $this->animals;
+    }
+
+    public function setAnimals(?self $animals): static
+    {
+        $this->animals = $animals;
 
         return $this;
     }

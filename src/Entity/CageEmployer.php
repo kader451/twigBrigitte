@@ -2,18 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\CageEmployeeRepository;
+
+use App\Repository\CageEmployerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CageEmployeeRepository::class)]
-class CageEmployee
+
+#[ORM\Entity(repositoryClass: CageEmployerRepository::class)]
+class CageEmployer
+
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
 
     /**
      * @var Collection<int, self>
@@ -25,12 +29,12 @@ class CageEmployee
      * @var Collection<int, self>
      */
     #[ORM\ManyToMany(targetEntity: self::class)]
-    private Collection $employee;
+    private Collection $employer;
 
     public function __construct()
     {
         $this->cage = new ArrayCollection();
-        $this->employee = new ArrayCollection();
+        $this->employer = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,24 +69,25 @@ class CageEmployee
     /**
      * @return Collection<int, self>
      */
-    public function getEmployee(): Collection
+    public function getEmployer(): Collection
     {
-        return $this->employee;
+        return $this->employer;
     }
 
-    public function addEmployee(self $employee): static
+    public function addEmployer(self $employer): static
     {
-        if (!$this->employee->contains($employee)) {
-            $this->employee->add($employee);
+        if (!$this->employer->contains($employer)) {
+            $this->employer->add($employer);
         }
 
         return $this;
     }
 
-    public function removeEmployee(self $employee): static
+    public function removeEmployer(self $employer): static
     {
-        $this->employee->removeElement($employee);
+        $this->employer->removeElement($employer);
 
         return $this;
     }
+
 }

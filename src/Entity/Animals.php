@@ -35,7 +35,7 @@ class Animals
     private ?bool $adoptable = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $dateArrivÃ©Ãe = null;
+    private ?\DateTime $dateArrivÃƒÂ©Ãƒe = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'classe')]
     private ?self $classe = null;
@@ -57,6 +57,16 @@ class Animals
         $this->classe = new ArrayCollection();
         $this->adoptant = new ArrayCollection();
         $this->cage = new ArrayCollection();
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'paysOrigine')]
+    private ?self $paysOrigine = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'refuge')]
+    private ?self $refuge = null;
+
+    public function __construct()
+    {
+        $this->paysOrigine = new ArrayCollection();
+        $this->refuge = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,14 +146,14 @@ class Animals
         return $this;
     }
 
-    public function getDateArrivÃ©Ãe(): ?\DateTime
+    public function getDateArrive(): ?\DateTime
     {
-        return $this->dateArrivÃ©Ãe;
+        return $this->dateArrive;
     }
 
-    public function setDateArrivÃ©Ãe(?\DateTime $dateArrivÃ©Ãe): static
+    public function setDateArrive(?\DateTime $dateArrive): static
     {
-        $this->dateArrivÃ©Ãe = $dateArrivÃ©Ãe;
+        $this->dateArrive = $dateArrive;
 
         return $this;
     }
@@ -156,6 +166,14 @@ class Animals
     public function setClasse(?self $classe): static
     {
         $this->classe = $classe;
+    public function getPaysOrigine(): ?self
+    {
+        return $this->paysOrigine;
+    }
+
+    public function setPaysOrigine(?self $paysOrigine): static
+    {
+        $this->paysOrigine = $paysOrigine;
 
         return $this;
     }
@@ -165,6 +183,11 @@ class Animals
         if (!$this->classe->contains($classe)) {
             $this->classe->add($classe);
             $classe->setClasse($this);
+    public function addPaysOrigine(self $paysOrigine): static
+    {
+        if (!$this->paysOrigine->contains($paysOrigine)) {
+            $this->paysOrigine->add($paysOrigine);
+            $paysOrigine->setPaysOrigine($this);
         }
 
         return $this;
@@ -176,6 +199,12 @@ class Animals
             // set the owning side to null (unless already changed)
             if ($classe->getClasse() === $this) {
                 $classe->setClasse(null);
+    public function removePaysOrigine(self $paysOrigine): static
+    {
+        if ($this->paysOrigine->removeElement($paysOrigine)) {
+            // set the owning side to null (unless already changed)
+            if ($paysOrigine->getPaysOrigine() === $this) {
+                $paysOrigine->setPaysOrigine(null);
             }
         }
 
@@ -190,6 +219,14 @@ class Animals
     public function setAdoptants(?self $adoptants): static
     {
         $this->adoptants = $adoptants;
+    public function getRefuge(): ?self
+    {
+        return $this->refuge;
+    }
+
+    public function setRefuge(?self $refuge): static
+    {
+        $this->refuge = $refuge;
 
         return $this;
     }
@@ -241,6 +278,11 @@ class Animals
         if (!$this->cage->contains($cage)) {
             $this->cage->add($cage);
             $cage->setCage($this);
+    public function addRefuge(self $refuge): static
+    {
+        if (!$this->refuge->contains($refuge)) {
+            $this->refuge->add($refuge);
+            $refuge->setRefuge($this);
         }
 
         return $this;
@@ -252,6 +294,12 @@ class Animals
             // set the owning side to null (unless already changed)
             if ($cage->getCage() === $this) {
                 $cage->setCage(null);
+    public function removeRefuge(self $refuge): static
+    {
+        if ($this->refuge->removeElement($refuge)) {
+            // set the owning side to null (unless already changed)
+            if ($refuge->getRefuge() === $this) {
+                $refuge->setRefuge(null);
             }
         }
 

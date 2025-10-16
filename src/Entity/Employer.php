@@ -30,6 +30,12 @@ class Employer
     public function __construct()
     {
         $this->adresseEmployer = new ArrayCollection();
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'poste')]
+    private ?self $poste = null;
+
+    public function __construct()
+    {
+        $this->poste = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,6 +87,14 @@ class Employer
     public function setAdresseEmployer(?self $adresseEmployer): static
     {
         $this->adresseEmployer = $adresseEmployer;
+    public function getPoste(): ?self
+    {
+        return $this->poste;
+    }
+
+    public function setPoste(?self $poste): static
+    {
+        $this->poste = $poste;
 
         return $this;
     }
@@ -90,6 +104,11 @@ class Employer
         if (!$this->adresseEmployer->contains($adresseEmployer)) {
             $this->adresseEmployer->add($adresseEmployer);
             $adresseEmployer->setAdresseEmployer($this);
+    public function addPoste(self $poste): static
+    {
+        if (!$this->poste->contains($poste)) {
+            $this->poste->add($poste);
+            $poste->setPoste($this);
         }
 
         return $this;
@@ -101,6 +120,12 @@ class Employer
             // set the owning side to null (unless already changed)
             if ($adresseEmployer->getAdresseEmployer() === $this) {
                 $adresseEmployer->setAdresseEmployer(null);
+    public function removePoste(self $poste): static
+    {
+        if ($this->poste->removeElement($poste)) {
+            // set the owning side to null (unless already changed)
+            if ($poste->getPoste() === $this) {
+                $poste->setPoste(null);
             }
         }
 
