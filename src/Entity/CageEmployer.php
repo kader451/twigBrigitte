@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CageFonctionnaliteRepository;
+use App\Repository\CageEmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CageFonctionnaliteRepository::class)]
-class CageFonctionnalite
+#[ORM\Entity(repositoryClass: CageEmployeeRepository::class)]
+class CageEmployee
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,7 +17,7 @@ class CageFonctionnalite
     private ?Cage $cage = null;
 
     #[ORM\ManyToOne]
-    private ?FonctionnaliteCage $fonctionnalite = null;
+    private ?Employer $employee = null;
 
     public function getId(): ?int
     {
@@ -36,14 +36,14 @@ class CageFonctionnalite
         return $this;
     }
 
-    public function getFonctionnalite(): ?FonctionnaliteCage
+    public function getEmployee(): ?Employer
     {
-        return $this->fonctionnalite;
+        return $this->employee;
     }
 
-    public function setFonctionnalite(?FonctionnaliteCage $fonctionnalite): static
+    public function setEmployee(?Employer $employee): static
     {
-        $this->fonctionnalite = $fonctionnalite;
+        $this->employee = $employee;
 
         return $this;
     }
