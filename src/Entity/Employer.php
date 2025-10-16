@@ -24,6 +24,12 @@ class Employer
     #[ORM\Column(length: 55, nullable: true)]
     private ?string $sexe = null;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'adresseEmployer')]
+    private ?self $adresseEmployer = null;
+
+    public function __construct()
+    {
+        $this->adresseEmployer = new ArrayCollection();
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'poste')]
     private ?self $poste = null;
 
@@ -73,6 +79,14 @@ class Employer
         return $this;
     }
 
+    public function getAdresseEmployer(): ?self
+    {
+        return $this->adresseEmployer;
+    }
+
+    public function setAdresseEmployer(?self $adresseEmployer): static
+    {
+        $this->adresseEmployer = $adresseEmployer;
     public function getPoste(): ?self
     {
         return $this->poste;
@@ -85,6 +99,11 @@ class Employer
         return $this;
     }
 
+    public function addAdresseEmployer(self $adresseEmployer): static
+    {
+        if (!$this->adresseEmployer->contains($adresseEmployer)) {
+            $this->adresseEmployer->add($adresseEmployer);
+            $adresseEmployer->setAdresseEmployer($this);
     public function addPoste(self $poste): static
     {
         if (!$this->poste->contains($poste)) {
@@ -95,6 +114,12 @@ class Employer
         return $this;
     }
 
+    public function removeAdresseEmployer(self $adresseEmployer): static
+    {
+        if ($this->adresseEmployer->removeElement($adresseEmployer)) {
+            // set the owning side to null (unless already changed)
+            if ($adresseEmployer->getAdresseEmployer() === $this) {
+                $adresseEmployer->setAdresseEmployer(null);
     public function removePoste(self $poste): static
     {
         if ($this->poste->removeElement($poste)) {

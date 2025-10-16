@@ -20,6 +20,9 @@ class CarnetSante
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $dateCreationCarnet = null;
 
+    #[ORM\OneToOne(targetEntity: self::class, cascade: ['persist', 'remove'])]
+    private ?self $animals = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class CarnetSante
     public function setDateCreationCarnet(?\DateTime $dateCreationCarnet): static
     {
         $this->dateCreationCarnet = $dateCreationCarnet;
+
+        return $this;
+    }
+
+    public function getAnimals(): ?self
+    {
+        return $this->animals;
+    }
+
+    public function setAnimals(?self $animals): static
+    {
+        $this->animals = $animals;
 
         return $this;
     }
