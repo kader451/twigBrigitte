@@ -6,9 +6,9 @@
     <h1>Animals index</h1>
 
     <table class="table">
-        <thead class="test">
+        <thead>
             <tr>
-                <th>Id</th>
+                <th>Type</th>
                 <th>Nom</th>
                 <th>Sexe</th>
                 <th>Age</th>
@@ -19,7 +19,7 @@
         <tbody>
         {% for animal in animals %}
             <tr>
-                <td>{{ animal.id }}</td>
+                <td>{{ animal.race ? animal.race.nom : 'pas renseigner' }}</td>
                 <td>{{ animal.nom }}</td>
                 <td>{{ animal.sexe }}</td>
                 <td>{{ animal.age }}</td>

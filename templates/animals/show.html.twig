@@ -39,6 +39,18 @@
                 <th>DateArrive</th>
                 <td>{{ animal.dateArrive ? animal.dateArrive|date('Y-m-d') : '' }}</td>
             </tr>
+              <tr>
+              {%if animal.adoptant %}
+                <th>Nom de l'adoptant</th>
+                <td>
+                <a href="{{path('app_adoptant_show' , {id: animal.adoptant.id}) }}">
+                {{ animal.adoptant.nom }}
+                </a>
+                {% else %}
+                <th>Pas d'adoptant</th>
+                {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

@@ -57,6 +57,11 @@ final class AnimalsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if (!$animal->isAdoptable()) {
+                $animal->setAdoptable(null);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER);
@@ -71,7 +76,7 @@ final class AnimalsController extends AbstractController
     #[Route('/{id}', name: 'app_animals_delete', methods: ['POST'])]
     public function delete(Request $request, Animals $animal, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $animal->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($animal);
             $entityManager->flush();
         }
