@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<h1>Test</h1>
+
+   {% for animal in animals %}
+                    <tr>
+                       Nom : <td>{{ animal.nom }}</td>
+                       Sexe : <td>{{ animal.sexe }}</td>
+                       Adoptable : <td>{{ animal.adoptable }}</td>
+                       <br>
+                    </tr>
+    {% endfor %}
+
+{% endblock %}

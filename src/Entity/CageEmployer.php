@@ -6,7 +6,7 @@ use App\Repository\CageEmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CageEmployeeRepository::class)]
-class CageEmployee
+class CageEmployer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,7 +17,7 @@ class CageEmployee
     private ?Cage $cage = null;
 
     #[ORM\ManyToOne]
-    private ?Employer $employee = null;
+    private ?Employer $employer = null;
 
     public function getId(): ?int
     {
@@ -36,14 +36,14 @@ class CageEmployee
         return $this;
     }
 
-    public function getEmployee(): ?Employer
+    public function getEmployer(): ?Employer
     {
-        return $this->employee;
+        return $this->employer;
     }
 
-    public function setEmployee(?Employer $employee): static
+    public function setEmployer(?Employer $employer): static
     {
-        $this->employee = $employee;
+        $this->employer = $employer;
 
         return $this;
     }

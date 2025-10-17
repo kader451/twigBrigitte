@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animals index{% endblock %}
+
+{% block body %}
+    <h1>Animals index</h1>
+
+    <table class="table">
+        <thead class="test">
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Sexe</th>
+                <th>Age</th>
+                <th>Adoptable</th>
+                <th>Nom de l'adoptant</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for animal in animals %}
+            <tr>
+                <td>{{ animal.id }}</td>
+                <td>{{ animal.nom }}</td>
+                <td>{{ animal.sexe }}</td>
+                <td>{{ animal.age }}</td>
+                <td>{{ animal.adoptable ? 'Yes' : 'No' }}</td>
+                <td>{{ animal.adoptant ? animal.adoptant.nom : ''}}
+                <td>
+                    <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
+                    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_animals_new') }}">Create new</a>
+{% endblock %}

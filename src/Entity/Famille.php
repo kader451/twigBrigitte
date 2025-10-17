@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FamilleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: FamilleRepository::class)]
 class Famille
 {
