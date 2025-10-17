@@ -6,7 +6,7 @@ use App\Repository\CageEmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CageEmployeeRepository::class)]
-class CageEmployee
+class CageEmployer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

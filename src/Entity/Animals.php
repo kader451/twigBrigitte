@@ -18,7 +18,7 @@ class Animals
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $sexe = null;
+    private string $sexe = "Inconnu";
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $dataNaissance = null;
@@ -33,7 +33,11 @@ class Animals
     private ?bool $adoptable = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $dateArrivÃ©Ãe = null;
+    private ?\DateTime $dateArrive = null;
+
+    #[ORM\ManyToOne(targetEntity: Adoptant::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Adoptant $adoptant = null;
 
     public function getId(): ?int
     {
@@ -112,14 +116,26 @@ class Animals
         return $this;
     }
 
-    public function getDateArrivÃ©Ãe(): ?\DateTime
+    public function getDateArrive(): ?\DateTime
     {
-        return $this->dateArrivÃ©Ãe;
+        return $this->dateArrive;
     }
 
-    public function setDateArrivÃ©Ãe(?\DateTime $dateArrivÃ©Ãe): static
+    public function setDateArrive(?\DateTime $dateArrive): static
     {
-        $this->dateArrivÃ©Ãe = $dateArrivÃ©Ãe;
+        $this->dateArrive = $dateArrive;
+
+        return $this;
+    }
+
+    public function getAdoptant(): ?Adoptant
+    {
+        return $this->adoptant;
+    }
+
+    public function setAdoptant(?Adoptant $adoptant): static
+    {
+        $this->adoptant = $adoptant;
 
         return $this;
     }

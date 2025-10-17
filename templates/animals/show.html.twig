@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animals{% endblock %}
+
+{% block body %}
+    <h1>Animals</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ animal.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ animal.nom }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ animal.sexe }}</td>
+            </tr>
+            <tr>
+                <th>DataNaissance</th>
+                <td>{{ animal.dataNaissance ? animal.dataNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ animal.age }}</td>
+            </tr>
+            <tr>
+                <th>NumeroIdentification</th>
+                <td>{{ animal.numeroIdentification }}</td>
+            </tr>
+            <tr>
+                <th>Adoptable</th>
+                <td>{{ animal.adoptable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DateArrive</th>
+                <td>{{ animal.dateArrive ? animal.dateArrive|date('Y-m-d') : '' }}</td>
+            </tr>
+
+{% if animal.adoptable and animal.adoptant %}
+<tr>
+  <th>Déjà adopté</th>
+  <td>
+    <a href="{{ path('app_adoptant_show', {'id': animal.adoptant.id}) }}">
+      {{ animal.adoptant.nom }}
+    </a>
+  </td>
+</tr>
+{% elseif animal.adoptable %}
+<tr>
+  <th>Pas encore d'adoptant</th>
+  <td>
+    <a class="btn btn-outline-primary"
+       href="{{ path('app_adoptant_new', {'animalId': animal.id}) }}">
+      Ajouter un adoptant
+    </a>
+  </td>
+</tr>
+{% endif %}
+    
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_animals_index') }}">back to list</a>
+
+    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+
+    {{ include('animals/_delete_form.html.twig') }}
+{% endblock %}
