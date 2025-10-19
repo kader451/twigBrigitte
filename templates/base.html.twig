@@ -1,17 +1,36 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon site{% endblock %}</title>
+
+
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav aria-label="Navigation principale">
+            <ul class="structureNavBarre">
+                <li><a href="{{ path('app_animals_index') }}" class="buttonNav">List of animals</a></li>
+                <li><a href="{{ path('app_adoptant_index') }}" class="buttonNav">List of adoptants</a></li>
+
+            </ul>
+
+        </nav>
+    </header>
+
+    <main class='main'>
         {% block body %}{% endblock %}
-    </body>
+    </main>
+    <footer>
+        <p>&copy; 2025 MonSite MVC — Tous droits réservés.</p>
+    </footer>
+</body>
+
 </html>

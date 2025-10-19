@@ -2,10 +2,11 @@
 
 {% block title %}Adoptant index{% endblock %}
 
-{% block body %}
+{% block body %}  
+
     <h1>Adoptant index</h1>
 
-    <table class="table">
+  <table class="cardAnimal">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,9 +19,9 @@
             <tr>
                 <td>{{ adoptant.id }}</td>
                 <td>{{ adoptant.nom }}</td>
-                <td>
-                    <a href="{{ path('app_adoptant_show', {'id': adoptant.id}) }}">show</a>
-                    <a href="{{ path('app_adoptant_edit', {'id': adoptant.id}) }}">edit</a>
+                <td >
+                    <a href="{{ path('app_adoptant_show', {'id': adoptant.id}) }}" class="btnShowEdit">show</a>
+                    <a href="{{ path('app_adoptant_edit', {'id': adoptant.id}) }}" >edit</a>
                 </td>
             </tr>
         {% else %}

@@ -3,6 +3,7 @@
 {% block title %}Edit Adoptant{% endblock %}
 
 {% block body %}
+<div class="cardAnimal">
     <h1>Edit Adoptant</h1>
 
     {{ include('adoptant/_form.html.twig', {'button_label': 'Update'}) }}
@@ -10,4 +11,5 @@
     <a href="{{ path('app_adoptant_index') }}">back to list</a>
 
     {{ include('adoptant/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

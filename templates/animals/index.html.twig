@@ -4,38 +4,24 @@
 
 {% block body %}
 
-    <h1>Animals index</h1>
+    <h1>Nos animaux</h1>
+<div class ="containerAnimal">
+    {% for animal in animals %}
+        <div class="cardAnimal">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Sexe</th>
-                <th>Adoptable</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for animal in animals %}
-            <tr>
-                <td>{{ animal.id }}</td>
-                <td>{{ animal.nom }}</td>
-                <td>{{ animal.sexe }}</td>
-                <td>{{ animal.adoptable ? 'Yes' : 'No' }}</td>
+        <h2>{{ animal.nom }}</h2>
+        <p> Adoptable : {{ animal.adoptable ? 'Yes' : 'No' }}</p>
+        <p>Sexe : {{ animal.sexe }}</p>
+        <p>Id : {{ animal.id }}</p>
 
-                <td>
-                    <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
-                    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+       <div class="btnShowEdit">
+            <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
+            <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+</div>
 
-    <a href="{{ path('app_animals_new') }}">Create new</a>
-{% endblock %}
+</div>
+
+{% endfor %}
+</div>
+ <a href="{{ path('app_animals_new') }}">Create new</a>
+{% endblock %}   

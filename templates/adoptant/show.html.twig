@@ -2,29 +2,22 @@
 
 {% block title %}Adoptant{% endblock %}
 
-{% block body %}
-    <h1>Adoptant</h1>
+{% block body %} 
+   <div class= "cardAnimal">
+    <h1>Fiche adoptant</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ adoptant.id }}</td>
+                <p>Id : {{ adoptant.id }}</p>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ adoptant.nom }}</td>
-            </tr>
-            <tr>
-                <th>Animal adopté : </th>
+                <p>Nom : {{ adoptant.nom }}</p>
+                <p>Animal adopté : 
                 <td>{% if adoptant.animal %}
   {{ adoptant.animal.nom }}
 {% else %}
-  —
-{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+  0
+{% endif %}
+</p>
+</div>
 
     <a href="{{ path('app_adoptant_index') }}">back to list</a>
 
